@@ -7,7 +7,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 // 3rd party modules
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 
 // App components
 import { AppRoutingModule } from './app-routing.module';
@@ -53,7 +53,8 @@ const appServices = [
         ...appModules,
     ],
     providers: [
-        ...appServices
+        ...appServices,
+        { provide: OAuthStorage, useValue: localStorage }
     ],
     bootstrap: [
         AppComponent

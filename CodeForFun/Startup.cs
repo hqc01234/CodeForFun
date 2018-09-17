@@ -1,11 +1,13 @@
+using CodeForFun.Configurations;
 using CodeForFun.Data.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using CodeForFun.Extensions.ServiceCollections;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace CodeForFun
 {
@@ -23,25 +25,24 @@ namespace CodeForFun
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+            services.AddAppOptions(_configuration);
+
+            AppSettings appSetting = GetAppSetting();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");
 
-            services.AddDataModule();
+            services.AddHttpsRedirection(options => options.HttpsPort = appSetting.HttpsPort);
 
-            services.AddAuthentication(option =>
-            {
-                option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddIdentityServerAuthentication(options =>
-            {
-                options.Authority = "https://localhost:5003";
-                options.RequireHttpsMetadata = true;
-                options.ApiName = "codeforfun";
-            });
+            services.AddDataModule(_configuration);
 
-            services.AddHttpsRedirection(options => options.HttpsPort = 5001);
+            services.AddAppAuthentication(appSetting);
+         
+            AppSettings GetAppSetting() => serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,7 +8,7 @@ namespace IdentityServer.Extensions.ServiceCollections
 {
     public static class IdentityServerExtension
     {
-        public static IServiceCollection AddCustomIdentityServer(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAppIdentityServer(this IServiceCollection services, IConfiguration configuration)
         {
             var migrationsAssembly = Assembly.GetExecutingAssembly().GetName().Name;
             var connectionString = configuration.GetConnectionString("DefaultConnection");

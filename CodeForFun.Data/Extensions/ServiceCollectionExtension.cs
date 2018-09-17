@@ -9,7 +9,7 @@ namespace CodeForFun.Data.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddDataModule(this IServiceCollection services)
+        public static IServiceCollection AddDataModule(this IServiceCollection services, IConfiguration configuration)
         {
             // Configure DbContext
             services.AddDbContext<CodeForFunDbContext>(options =>
@@ -23,11 +23,7 @@ namespace CodeForFun.Data.Extensions
 
             return services;
 
-            string GetConnectionString()
-            {
-                var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-                return configuration.GetConnectionString("DefaultConnection");
-            }
+            string GetConnectionString() => configuration.GetConnectionString("DefaultConnection");
         }
     }
 }
