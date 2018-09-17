@@ -1,0 +1,222 @@
+@import '~@angular/material/theming';
+@import 'theme';
+@import 'mixin';
+
+i:not(.sidenav-icon) {
+	min-width: calc(#{$sidenav-width-mini} - #{$sidenav-spacing} * 2);
+	text-align: center;
+}
+
+.fa-app::before {
+	content: 'AP';
+	font: 400 14px/20px Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.fa-user::before {
+	content: 'US';
+	font: 400 14px/20px Roboto, 'Helvetica Neue', sans-serif;
+}
+
+@mixin mat-sidenav-customize {
+	// Darken background color for sidenav header
+	mat-toolbar {
+		background-color: mat-color($app-primary, 600) !important;
+		padding: 0px calc(#{$sidenav-spacing} * 2 - 1px);
+	}
+
+	// Container
+	mat-accordion {
+		display: block;
+		overflow-y: auto;
+		height: 100%;
+
+		@include property-with-header-and-footer-size(padding-bottom);
+
+		/* width */
+		&::-webkit-scrollbar {
+			width: 4px;
+		}
+
+		/* Track */
+		&::-webkit-scrollbar-track {
+			background: #f1f1f1;
+		}
+
+		/* Handle */
+		&::-webkit-scrollbar-thumb {
+			background: #888;
+		}
+
+		/* Handle on hover */
+		&::-webkit-scrollbar-thumb:hover {
+			background: #555;
+		}
+	}
+
+	mat-expansion-panel {
+		// remove box shadow for expansion group
+		box-shadow: none !important;
+		background-color: $sidenav-background-color !important;
+		margin: $sidenav-spacing $sidenav-spacing 0px $sidenav-spacing;
+
+		// Tree item group
+		mat-expansion-panel-header {
+			color: $light-primary-text !important;
+			border-radius: $sidenav-item-border-radius;
+			font-size: $sidenav-font-size;
+			padding: 0px;
+
+			// Fix ripple effect
+			position: relative;
+			z-index: 1;
+
+			&:hover,
+			&.mat-expanded,
+			&.active {
+				background-color: $sidenav-hover !important;
+				@include transition((background-color, border-radius));
+			}
+
+			&.mat-expanded {
+				border-radius: $sidenav-item-border-radius
+					$sidenav-item-border-radius 0px 0px;
+				@include transition(border-radius);
+			}
+
+			// Icon indicator
+			::ng-deep .mat-expansion-indicator {
+				padding: 0px $sidenav-padding-size;
+				margin-bottom: 2px;
+
+				@include fadeIn;
+
+				&::after {
+					color: $light-primary-text !important;
+					margin-bottom: 4px;
+				}
+			}
+
+			// Text and icon
+			::ng-deep .mat-content {
+				display: flex;
+				align-items: center; // Fix icon when expand/collapse
+				overflow: unset !important;
+			}
+		}
+	}
+
+	// Tree item body
+	::ng-deep .mat-expansion-panel-body {
+		padding: 0px;
+		background-color: mat-color($mat-blue-gray, 900);
+		border-radius: 0px 0px $sidenav-item-border-radius
+			$sidenav-item-border-radius;
+
+		.mat-list {
+			padding: $sidenav-spacing 0px;
+
+			.mat-list-item {
+				font-size: $sidenav-font-size;
+				height: $sidenav-item-height;
+				cursor: pointer;
+
+				.mat-list-item-content {
+					color: $light-disabled-text;
+					padding: 0px;
+
+					&:hover {
+						color: $light-primary-text;
+					}
+
+					@include transition((background-color, color));
+				}
+
+				&.active {
+					.mat-list-item-content {
+						color: $light-primary-text;
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin mat-sidenav-mini {
+	// Hide indicator
+	::ng-deep .mat-expansion-indicator {
+		display: none;
+	}
+
+	// Hide scroll bar
+	mat-accordion {
+		overflow-y: hidden;
+	}
+}
+
+@mixin app-sidenav {
+	// Group title
+	.sidenav-group-title {
+		color: $light-disabled-text;
+		margin: 24px 0px;
+		padding: 0 calc(#{$sidenav-spacing} + #{$sidenav-padding-size});
+		white-space: nowrap;
+
+		.sidenav-group-title-main {
+			display: block;
+			@include fadeIn;
+		}
+
+		.sidenav-group-title-mini {
+			display: none;
+		}
+
+		+ mat-expansion-panel {
+			padding-top: 0px !important;
+		}
+	}
+
+	// Fade effect for text when expand/collapse
+	.sidenav-title {
+		@include fadeIn;
+	}
+
+	.sidenav-main-title {
+		width: 100%;
+		text-align: center;
+	}
+}
+
+@mixin app-sidenav-mini {
+	// Hide title and indicatior
+	.sidenav-title {
+		display: none;
+	}
+
+	// Change group title
+	.sidenav-group-title {
+		padding: 0;
+
+		.sidenav-group-title-main {
+			display: none;
+		}
+
+		.sidenav-group-title-mini {
+			display: block;
+			width: $sidenav-width-mini;
+			text-align: center;
+			@include fadeIn;
+		}
+	}
+}
+
+// Side nav
+:host-context(.sidenav) {
+	@include app-sidenav;
+	@include mat-sidenav-customize;
+}
+
+// Sidenav mini
+:host-context(.sidenav-mini:not(.sidenav-handset) .sidenav:not(.hover)) {
+	@include app-sidenav-mini;
+	@include mat-sidenav-mini;
+}

@@ -1,0 +1,51 @@
+@import '~@angular/material/theming';
+@import 'theme';
+@import 'mixin';
+
+@mixin sidenav {
+	.sidenav {
+		width: $sidenav-width;
+		background-color: $sidenav-background-color;
+		overflow: hidden;
+
+		@include unSelectable;
+		@include transition($property: width);
+	}
+
+	// width mini sidenav when not hover and not handset
+	&.sidenav-mini:not(.sidenav-handset) {
+		// there is a bug some time css hover state lost that make sidenav collapse even though mouse
+		// still hover  => use .hover + script
+		.sidenav:not(.hover) {
+			width: $sidenav-width-mini;
+		}
+	}
+}
+
+@mixin sidenav-content {
+	.sidenav-content {
+		margin-left: $sidenav-width !important;
+		@include transition($property: margin-left);
+	}
+
+	// Sidenav mini
+	&.sidenav-mini:not(.sidenav-handset) .sidenav-content {
+		margin-left: $sidenav-width-mini !important;
+	}
+
+	// Handset
+	&.sidenav-handset .sidenav-content {
+		margin-left: 0 !important;
+	}
+}
+
+.mat-sidenav-container {
+	height: 100vh;
+
+	.main-container {
+		@include property-with-main-height-size(height);
+	}
+
+	@include sidenav;
+	@include sidenav-content;
+}

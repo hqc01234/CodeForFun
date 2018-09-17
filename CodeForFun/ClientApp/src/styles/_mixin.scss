@@ -1,0 +1,71 @@
+@import '~bootstrap/scss/mixins';
+@import 'variables';
+
+@function property-with-important($property, $important) {
+	@return $property if($important == true, !important, null);
+}
+
+@mixin transition(
+	$property,
+	$time: 0.5s,
+	$important: false,
+	$function: cubic-bezier(0.2, 0.8, 0.2, 1),
+	$delay: 0s
+) {
+	transition-property: property-with-important($property, $important);
+	transition-duration: property-with-important($time, $important);
+	transition-timing-function: property-with-important($function, $important);
+	transition-delay: $delay;
+}
+
+@mixin fadeIn($time: 0.7s, $from: 0, $to: 1) {
+	-webkit-animation: fadeIn $time; /* Safari, Chrome and Opera > 12.1 */
+	-moz-animation: fadeIn $time; /* Firefox < 16 */
+	-ms-animation: fadeIn $time; /* Internet Explorer */
+	-o-animation: fadeIn $time; /* Opera < 12.1 */
+	animation: fadeIn $time;
+
+	@keyframes fadeIn {
+		0% {
+			opacity: $from;
+		}
+		10% {
+			opacity: $from;
+		}
+		100% {
+			opacity: $to;
+		}
+	}
+}
+
+@mixin fadeOut($time: 1s) {
+	-webkit-transition: opacity $time ease-in-out;
+	-moz-transition: opacity $time ease-in-out;
+	-ms-transition: opacity $time ease-in-out;
+	-o-transition: opacity $time ease-in-out;
+}
+
+@mixin unSelectable {
+	-webkit-user-select: none; /* Safari 3.1+ */
+	-moz-user-select: none; /* Firefox 2+ */
+	-ms-user-select: none; /* IE 10+ */
+	user-select: none; /* Standard syntax */
+}
+
+@mixin property-with-main-height-size($property) {
+	#{$property}: calc(100vh - (#{$header-height} + #{$footer-height}));
+
+	@include media-breakpoint-down(xs) {
+		#{$property}: calc(
+			100vh - (#{$header-height-xs} + #{$footer-height-xs})
+		);
+	}
+}
+
+@mixin property-with-header-and-footer-size($property) {
+	#{$property}: calc(#{$header-height} + #{$footer-height});
+
+	@include media-breakpoint-down(xs) {
+		#{$property}: calc(#{$header-height-xs} + #{$footer-height-xs});
+	}
+}

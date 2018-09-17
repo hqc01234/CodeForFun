@@ -1,0 +1,54 @@
+<mat-toolbar color="primary">
+    <i class="fab fa-angular fa-2x sidenav-icon"></i>
+    <h4 class="sidenav-title sidenav-main-title">Code For Fun</h4>
+</mat-toolbar>
+
+<mat-accordion displayMode="flat">
+    <div class="sidenav-group-title font-weight-light">
+        <small class="sidenav-group-title-mini">PM</small>
+        <small class="sidenav-group-title-main">PRODUCT MANAGEMENT</small>
+    </div>
+
+    <mat-expansion-panel [disabled]="true">
+        <mat-expansion-panel-header matRipple
+            collapsedHeight="{{matPanelHeaderHeight}}"
+            expandedHeight="{{matPanelHeaderHeight}}">
+            <i class="fas fa-industry"></i>
+            <span class="sidenav-title">Products</span>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [disabled]="true">
+        <mat-expansion-panel-header matRipple
+            collapsedHeight="{{matPanelHeaderHeight}}"
+            expandedHeight="{{matPanelHeaderHeight}}">
+            <i class="fas fa-cog"></i>
+            <span class="sidenav-title">Categories</span>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <div class="sidenav-group-title font-weight-light">
+        <small class="sidenav-group-title-mini">ST</small>
+        <small class="sidenav-group-title-main">SETTINGS</small>
+    </div>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header matRipple
+            collapsedHeight="{{matPanelHeaderHeight}}"
+            expandedHeight="{{matPanelHeaderHeight}}">
+            <i class="fas fa-cog"></i>
+            <span class="sidenav-title">General</span>
+        </mat-expansion-panel-header>
+
+        <mat-list>
+            <mat-list-item>
+                <i class="fas fa-app"></i>
+                <span class="sidenav-title">Application</span>
+            </mat-list-item>
+            <mat-list-item>
+                <i class="fas fa-user"></i>
+                <span class="sidenav-title">User</span>
+            </mat-list-item>
+        </mat-list>
+    </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,17 @@
+@import '~@angular/material/theming';
+@import '~bootstrap/scss/mixins';
+@import 'theme';
+@import 'variables';
+
+.footer {
+	position: relative;
+	bottom: 0px;
+
+	.footer-text {
+		padding-top: 0.5rem;
+
+		@include media-breakpoint-down(xs) {
+			padding-top: 0.25rem;
+		}
+	}
+}

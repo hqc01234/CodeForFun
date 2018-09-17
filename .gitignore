@@ -1,0 +1,11 @@
+.vs/
+IdentityServer/bin/
+CodeForFun.Core/obj/
+CodeForFun.Data/obj/
+CodeForFun.Services/obj/
+IdentityServer/obj/
+CodeForFun/.vscode/
+CodeForFun.Core/bin/
+CodeForFun.Data/bin/
+CodeForFun.Services/bin/
+IdentityServer/tempkey.rsa

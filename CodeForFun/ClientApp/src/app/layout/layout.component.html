@@ -1,0 +1,29 @@
+<mat-sidenav-container #matSidenavContainer
+    class="sidenav-mini">
+
+    <!-- Side Navigation -->
+    <mat-sidenav #sideNav
+        class="sidenav"
+        fixedInViewport="true"
+        [mode]="(layoutService.isHandset$ | async) ? 'over' : 'side'"
+        [opened]="!(layoutService.isHandset$ | async)"
+        appSidenavHover>
+
+        <app-side-navigation></app-side-navigation>
+    </mat-sidenav>
+
+    <!-- Container -->
+    <mat-sidenav-content class="sidenav-content">
+        <!-- Header -->
+        <app-header></app-header>
+
+        <!-- Main content -->
+        <div class="container-fluid main-container">
+            <ng-content></ng-content>
+        </div>
+
+        <!-- Footer -->
+        <app-footer></app-footer>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

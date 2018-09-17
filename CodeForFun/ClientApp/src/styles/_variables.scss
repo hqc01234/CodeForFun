@@ -1,0 +1,33 @@
+$grid-breakpoints: (
+	xs: 0,
+	sm: 600px,
+	md: 960px,
+	lg: 1280px,
+	xl: 1600px
+);
+$container-max-widths: (
+	sm: 600px,
+	md: 960px,
+	lg: 1280px,
+	xl: 1600px
+);
+// General
+$link-color: mat-color($app-primary);
+$link-hover-color: currentColor;
+$link-hover-decoration: none;
+// Side Nav
+$sidenav-background-color: mat-color($mat-gray, 900);
+$sidenav-hover: mat-color($mat-gray, 700);
+$sidenav-width: 250px;
+$sidenav-width-mini: 70px;
+$sidenav-spacing: 10px; // spacing bettween each item
+$sidenav-padding-size: 18px;
+$sidenav-item-border-radius: 4px;
+$sidenav-item-height: 44px;
+$sidenav-font-size: 14px;
+// Header
+$header-height: 64px;
+$header-height-xs: 56px;
+// Footer
+$footer-height: 64px;
+$footer-height-xs: 56px;
