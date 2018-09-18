@@ -1,6 +1,13 @@
 <mat-toolbar color="primary">
-    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="toggleSideNav()">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    <button type="button" mat-icon-button (click)="toggleSideNav()">
+        <mat-icon>menu</mat-icon>
     </button>
-    <span>ClientApp</span>
+    <span>Dashboard</span>
+
+    <div class="flex-grow-1"></div>
+
+    <button type="button" mat-button (click)="signOut()" class="sign-out-btn">
+        <mat-icon fontSet="fas" fontIcon="fa-sign-out-alt" class="sign-out-icon"></mat-icon>
+        <span class="ml-1">Sign out</span>
+    </button>
 </mat-toolbar>

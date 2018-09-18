@@ -2,7 +2,7 @@
 {
     public class AppSettings
     {
-        public string Issuer { get; set; } = "https://localhost:5003";
+        public string AuthorityIssuer { get; set; } = "https://localhost:5003";
 
         public string ApiName { get; set; } = "codeforfun";
 

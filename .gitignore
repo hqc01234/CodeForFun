@@ -9,3 +9,4 @@ CodeForFun.Core/bin/
 CodeForFun.Data/bin/
 CodeForFun.Services/bin/
 IdentityServer/tempkey.rsa
+CodeForFun/ClientApp/.vscode/

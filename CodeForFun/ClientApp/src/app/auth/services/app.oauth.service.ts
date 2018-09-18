@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { authConfig } from '../config/auth.config';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -10,6 +10,8 @@ export class AppOAuthService implements OnDestroy {
     private _isLoggedIn$ = new BehaviorSubject(this._oauthService.hasValidAccessToken());
     private _subscriptions: Array<Subscription> = [];
     private _isInit = false;
+
+    public discoveryDocumentLoaded$ = new Subject();
 
     constructor(
         private _oauthService: OAuthService,
@@ -27,6 +29,10 @@ export class AppOAuthService implements OnDestroy {
         this._isInit = true;
         this._oauthService.configure(authConfig);
         this._oauthService.tokenValidationHandler = new JwksValidationHandler();
+
+        this._oauthService.loadDiscoveryDocument().then(() => {
+            this.discoveryDocumentLoaded$.next();
+        });
 
         this._subscriptions.push(
             this._oauthService.events.subscribe(event => {

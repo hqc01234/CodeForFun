@@ -53,8 +53,8 @@ namespace IdentityServer.Controllers.Account
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
-            //var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-            //if (context == null) return NotFound();
+            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            if (context == null) return NotFound();
 
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);

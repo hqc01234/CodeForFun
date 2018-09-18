@@ -19,6 +19,7 @@ import { LoginRedirectComponent } from './auth/callback-redirect/login-callback.
 // App services
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AppOAuthService } from './auth/services/app.oauth.service';
+import { MatIconRegistry } from '@angular/material';
 
 const coreModules = [
     BrowserModule,
@@ -54,6 +55,7 @@ const appServices = [
     ],
     providers: [
         ...appServices,
+        MatIconRegistry,
         { provide: OAuthStorage, useValue: localStorage }
     ],
     bootstrap: [

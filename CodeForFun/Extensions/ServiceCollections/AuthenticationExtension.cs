@@ -15,7 +15,7 @@ namespace CodeForFun.Extensions.ServiceCollections
             })
             .AddIdentityServerAuthentication(options =>
             {
-                options.Authority = appSettings.Issuer;
+                options.Authority = appSettings.AuthorityIssuer;
                 options.ApiName = appSettings.ApiName;
                 options.RequireHttpsMetadata = true;
             });

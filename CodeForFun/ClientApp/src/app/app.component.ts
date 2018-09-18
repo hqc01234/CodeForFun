@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppOAuthService } from './auth/services/app.oauth.service';
+import { MatIconRegistry } from '@angular/material';
 
 @Component({
     selector: 'app-root',
@@ -9,8 +10,10 @@ import { AppOAuthService } from './auth/services/app.oauth.service';
 export class AppComponent {
 
     constructor(
-        public appOAuthService: AppOAuthService
+        public appOAuthService: AppOAuthService,
+        private _matIconRegistry: MatIconRegistry
     ) {
         this.appOAuthService.initialize();
+        this._matIconRegistry.registerFontClassAlias('fontawesome', 'fas');
     }
 }
