@@ -37,8 +37,8 @@ namespace IdentityServer.Configurations
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = {
                         "https://localhost:5001/login-callback",
-                        "https://localhost:5001/silent"
-                    },
+						"https://localhost:5001/silent-refresh.html"
+					},
                     PostLogoutRedirectUris = { "https://localhost:5001" },
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,

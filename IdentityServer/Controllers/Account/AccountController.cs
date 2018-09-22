@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using IdentityModel;
+using IdentityServer.Attributes;
 using IdentityServer.Entities.Identity;
 using IdentityServer.Models;
 using IdentityServer4.Events;
@@ -22,6 +23,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServer.Controllers.Account
 {
+    [SecurityHeaders]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -57,7 +59,7 @@ namespace IdentityServer.Controllers.Account
             if (context == null) return NotFound();
 
             // build a model so we know what to show on the login page
-            var vm = await BuildLoginViewModelAsync(returnUrl);
+            var vm = await BuildLoginViewModelAsync(returnUrl, context);
 
             if (vm.IsExternalLoginOnly)
             {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductsComponent } from './products/products.component';
 import { AuthGuard } from './auth/guards/auth.guard';
-import { LoginRedirectComponent } from './auth/callback-redirect/login-callback.component';
+import { LoginRedirectComponent } from './auth/redirect/login-redirect.component';
 
 const routes: Routes = [
     {

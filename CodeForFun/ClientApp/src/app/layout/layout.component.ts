@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { LayoutService } from './services/layout.service';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatIconRegistry } from '@angular/material';
 
 @Component({
     selector: 'app-layout',
@@ -29,8 +29,10 @@ export class LayoutComponent implements AfterViewInit {
     private _isHandset: boolean;
 
     constructor(
-        public layoutService: LayoutService
+        public layoutService: LayoutService,
+        private _matIconRegistry: MatIconRegistry
     ) {
+        this._matIconRegistry.registerFontClassAlias('fontawesome', 'fas');
     }
 
     public ngAfterViewInit() {

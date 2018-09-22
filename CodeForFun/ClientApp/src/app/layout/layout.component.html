@@ -1,13 +1,8 @@
-<mat-sidenav-container #matSidenavContainer
-    class="sidenav-mini">
+<mat-sidenav-container #matSidenavContainer class="sidenav-mini">
 
     <!-- Side Navigation -->
-    <mat-sidenav #sideNav
-        class="sidenav"
-        fixedInViewport="true"
-        [mode]="(layoutService.isHandset$ | async) ? 'over' : 'side'"
-        [opened]="!(layoutService.isHandset$ | async)"
-        appSidenavHover>
+    <mat-sidenav class="sidenav" fixedInViewport="true" [mode]="(layoutService.isHandset$ | async) ? 'over' : 'side'"
+        [opened]="!(layoutService.isHandset$ | async)" appSidenavHover #sideNav>
 
         <app-side-navigation></app-side-navigation>
     </mat-sidenav>

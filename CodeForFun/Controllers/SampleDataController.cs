@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,9 +7,9 @@ using System.Linq;
 
 namespace CodeForFun.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
-    public class SampleDataController : Controller
+	[Route("api/[controller]")]
+	[Authorize(Policy = "CodeForFun")]
+	public class SampleDataController : Controller
     {
         private static string[] Summaries = new[]
         {

@@ -7,42 +7,37 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 // 3rd party modules
-import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 
 // App components
 import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/layout.module';
+import { AppHttpClientModule } from './http-client/http-client.module';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './products/products.component';
-import { LoginRedirectComponent } from './auth/callback-redirect/login-callback.component';
+import { AuthModule } from './auth/auth.module';
 
 // App services
-import { AuthGuard } from './auth/guards/auth.guard';
-import { AppOAuthService } from './auth/services/app.oauth.service';
-import { MatIconRegistry } from '@angular/material';
 
 const coreModules = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    OAuthModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 ];
 
 const appModules = [
     AppRoutingModule,
-    AppLayoutModule
+    AppLayoutModule,
+    AuthModule.forRoot(),
+    AppHttpClientModule.forRoot()
 ];
 
 const appComponents = [
     AppComponent,
-    LoginRedirectComponent,
     ProductsComponent
 ];
 
-const appServices = [
-    AuthGuard,
-    AppOAuthService
+const appProviders = [
 ];
 
 @NgModule({
@@ -54,9 +49,7 @@ const appServices = [
         ...appModules,
     ],
     providers: [
-        ...appServices,
-        MatIconRegistry,
-        { provide: OAuthStorage, useValue: localStorage }
+        ...appProviders,
     ],
     bootstrap: [
         AppComponent

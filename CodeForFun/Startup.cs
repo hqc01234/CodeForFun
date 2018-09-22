@@ -16,7 +16,10 @@ namespace CodeForFun
         private readonly IConfiguration _configuration;
         private readonly IHostingEnvironment _environment;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public Startup(
+            IConfiguration configuration, 
+            IHostingEnvironment environment
+        )
         {
             _configuration = configuration;
             _environment = environment;
@@ -46,8 +49,10 @@ namespace CodeForFun
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IOptions<AppSettings> appSettingOpts)
         {
+            var appSettings = appSettingOpts.Value;
+
             if (_environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -58,6 +63,7 @@ namespace CodeForFun
                 app.UseHsts();
             }
 
+            app.UseCors(appSettings.CORSPolicyName);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

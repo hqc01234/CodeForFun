@@ -11,7 +11,7 @@ import {
     MatGridListModule, MatCardModule, MatMenuModule,
     MatIconModule, MatButtonModule, MatToolbarModule,
     MatSidenavModule, MatListModule, MatInputModule,
-    MatExpansionModule, MatRippleModule, MatTooltipModule
+    MatExpansionModule, MatRippleModule, MatTooltipModule, MatIconRegistry
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -44,7 +44,8 @@ const materailModules = [
         ...materailModules
     ],
     providers: [
-        LayoutService
+        LayoutService,
+        MatIconRegistry
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

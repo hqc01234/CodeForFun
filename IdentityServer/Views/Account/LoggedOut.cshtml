@@ -1,34 +1,33 @@
 ﻿@model LoggedOutViewModel
-
-@{ 
+@{
     // set this so the layout rendering sees an anonymous user
     ViewData["signed-out"] = true;
+    Layout = "_Layout";
 }
 
-<div class="page-header logged-out">
-    <h1>
-        Logout
-        <small>You are now logged out</small>
-    </h1>
-
-    @if (Model.PostLogoutRedirectUri != null)
-    {
-        <div>
-            Click <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a> to return to the
-            <span>@Model.ClientName</span> application.
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="card w-50 text-black-50 login-box">
+        <div class="card-header text-center border-0 bg-transparent mt-4">
+            <h4 class="text-primary">Code For Fun</h4>
+            <small>You are now logged out</small>
         </div>
-    }
 
-    @if (Model.SignOutIframeUrl != null)
-    {
-        <iframe width="0" height="0" class="signout" src="@Model.SignOutIframeUrl"></iframe>
-    }
+        <div class="card-body">
+            @if (Model.PostLogoutRedirectUri != null)
+            {
+                <div class="d-flex justify-content-center">
+                    <span>Please click</span>
+                    <span>
+                        <a class="mx-1 PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a>
+                    </span>
+                    <span>if you are not redirected within a few seconds</span>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
-@section scripts
+@if (Model.AutomaticRedirectAfterSignOut)
 {
-    @if (Model.AutomaticRedirectAfterSignOut)
-    {
-        <script src="~/js/signout-redirect.js"></script>
-    }
+    <script src="~/js/signout-redirect.js"></script>
 }
