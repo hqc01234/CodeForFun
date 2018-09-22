@@ -12,27 +12,26 @@ import 'reflect-metadata';
 @Injectable()
 export abstract class HttpAbstractService {
     public loadingState$ = new Subject<LoadingState>();
+    public pendingRequest = 0;
 
     constructor(
-        protected router: Router,
-        protected httpClient: HttpClient,
+        public router: Router,
+        public httpClient: HttpClient,
     ) {
     }
 
-    protected pendingRequest = 0;
-
-    protected getBaseUrl(): string {
+    public getBaseUrl(): string {
         return environment.apiUrl;
     }
 
-    protected getDefaultHeaders(): Object {
+    public getDefaultHeaders() {
         return new HttpHeaders({
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         });
     }
 
-    protected getApiSettings(apiSettings?: IApiSettings): IApiSettings {
+    public getApiSettings(apiSettings?: IApiSettings): IApiSettings {
         const defaultSettings: IApiSettings = {
             showResponeMessage: true,
             showProgress: true,
@@ -46,7 +45,7 @@ export abstract class HttpAbstractService {
 	 * @param settings
 	 * @param propertyKey name of api function
 	 */
-    protected responseInterceptor(
+    public responseInterceptor(
         observableRes: Observable<any>,
         settings: IApiSettings,
         propertyKey: string

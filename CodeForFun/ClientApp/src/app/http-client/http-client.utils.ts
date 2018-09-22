@@ -1,8 +1,7 @@
 // https://github.com/netmedia/angular-architecture-patterns
 
-import { HttpParams, HttpClient } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { HttpAbstractService } from './http-client.service';
-import { BehaviorSubject } from 'rxjs';
 import 'reflect-metadata';
 
 export const PathMetadataKey = Symbol('Path');
@@ -23,16 +22,6 @@ export interface LoadingState {
     isHavePendingRequest: boolean;
     of: (funcs: Array<Function>) => boolean;
     isTargetFunc: (func: Function) => boolean;
-}
-
-export interface IHttpService {
-    loadingState$: BehaviorSubject<LoadingState>;
-    pendingRequest: number;
-    httpClient: HttpClient;
-    getBaseUrl: Function;
-    getDefaultHeaders: Function;
-    responseInterceptor: Function;
-    getApiSettings: (adapterSetting: IApiSettings) => IApiSettings;
 }
 
 export interface IApiSettings {
@@ -58,13 +47,13 @@ export function methodBuilder(method: 'DELETE' | 'GET' | 'HEAD' | 'JSONP' | 'OPT
             const bodyParams = Reflect.getOwnMetadata(BodyMetadataKey, target, propertyKey);
 
             descriptor.value = function (...args: any[]) {
-                const _this = this as IHttpService;
+                const _this = this as HttpAbstractService;
                 const _body = createBody(bodyParams, args);
                 const _path = createPath(pathParams, url, args);
                 const _params = createParams(queryParams, args);
                 const _targetUrl = getTargetUrl(_this.getBaseUrl(), _path, _params !== null);
                 const _headers = _this.getDefaultHeaders();
-                const _settting = _this.getApiSettings(descriptor.apiSettings);
+                const _setttings = _this.getApiSettings(descriptor.apiSettings);
 
                 Reflect.defineMetadata(LoadingStateMetadataKey, true, target, propertyKey);
                 _this.pendingRequest++;
@@ -78,12 +67,12 @@ export function methodBuilder(method: 'DELETE' | 'GET' | 'HEAD' | 'JSONP' | 'OPT
                         params: _params,
                         reportProgress: false,
                         observe: 'response', // only observe http response result
-                        responseType: _settting.responeType
+                        responseType: _setttings.responeType
                     }
                 );
 
                 // intercept the response
-                observable = _this.responseInterceptor(observable, _settting, propertyKey, descriptor.adapter);
+                observable = _this.responseInterceptor(observable, _setttings, propertyKey);
 
                 return observable;
             };
@@ -166,7 +155,7 @@ function filterTargetFunc(funcs: Function[]) {
     return result;
 }
 
-function getTargetFunc(func: Function): boolean {
+function isTargetFunc(func: Function): boolean {
     const _this = this as LoadingState;
     return _this.target[_this.propertyKey] === func;
 }
@@ -181,6 +170,6 @@ export function createLoadingState(param: {
         isLoading: false,
         isHavePendingRequest: false,
         of: filterTargetFunc,
-        isTargetFunc: getTargetFunc
+        isTargetFunc: isTargetFunc
     };
 }
